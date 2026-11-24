@@ -1,0 +1,211 @@
+/* full-width layer so the background glows fade out at the screen edges,
+   not at the content column */
+.shell {
+  position: relative;
+  overflow-x: clip;
+}
+.page {
+  position: relative;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 64px 24px 48px;
+}
+
+/* soft brand glows behind the hero: plain radial gradients, no blur filters,
+   so they cost nothing to paint */
+.glow {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1100px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 22% 30%, rgb(251 146 60 / 0.16), transparent 70%),
+    radial-gradient(36% 32% at 80% 22%, rgb(168 85 247 / 0.11), transparent 70%),
+    radial-gradient(40% 30% at 50% 78%, rgb(251 146 60 / 0.08), transparent 70%);
+}
+
+/* ---------- hero ---------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.logo {
+  width: auto;
+  height: 52px;
+}
+.title {
+  margin-top: 36px;
+  max-width: 16ch;
+  font-size: clamp(38px, 6.4vw, 68px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  color: #0b0b0c;
+  text-wrap: balance;
+}
+.accent {
+  background: linear-gradient(90deg, #f97316, #ea580c 55%, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.description {
+  margin-top: 24px;
+  max-width: 600px;
+  font-size: clamp(16.5px, 1.9vw, 19px);
+  line-height: 1.65;
+  color: #5f636b;
+  text-wrap: pretty;
+}
+
+/* ---------- QR ---------- */
+.qrWrap {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* The code sits on a white halo that fades out into the page: solid white
+   under the code (cameras need the contrast), feathered to transparent at the
+   edge, with a faint warm and lavender tint in the fade. No border, no box. */
+.qrHalo {
+  position: relative;
+  width: min(340px, 78vw);
+  padding: 15%;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, #fff 0%, #fff 72%, rgb(255 255 255 / 0.85) 80%, rgb(255 247 237 / 0.45) 90%, rgb(255 255 255 / 0) 100%);
+}
+.qrHalo::before {
+  content: "";
+  position: absolute;
+  inset: -6%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(closest-side, transparent 62%, rgb(251 146 60 / 0.14) 78%, rgb(196 181 253 / 0.12) 88%, transparent 100%);
+}
+.qrCaption {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c2410c;
+}
+.qrUrl {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #8a8f97;
+}
+
+/* ---------- sections ---------- */
+.section {
+  margin-top: 120px;
+}
+.sectionHead {
+  max-width: 640px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.h2 {
+  font-size: clamp(30px, 4.2vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: #0b0b0c;
+  text-wrap: balance;
+}
+.sub {
+  margin-top: 14px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #6b6f76;
+  text-wrap: pretty;
+}
+
+.teamGrid,
+.resourceGrid {
+  display: grid;
+  gap: 20px;
+}
+.teamGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 760px;
+  margin: 0 auto;
+}
+.resourceGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.span2 {
+  grid-column: span 2;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  margin-top: 120px;
+  padding-top: 28px;
+  border-top: 1px solid #efece8;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 14px;
+  color: #8a8f97;
+}
+.footerLink {
+  font-weight: 600;
+  color: #c2410c;
+  text-decoration: none;
+}
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 1023px) {
+  .teamGrid,
+  .resourceGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 639px) {
+  .page {
+    padding: 40px 16px 36px;
+  }
+  .logo {
+    height: 44px;
+  }
+  .title {
+    margin-top: 28px;
+  }
+  .description {
+    margin-top: 18px;
+  }
+  .qrWrap {
+    margin-top: 36px;
+  }
+  .section {
+    margin-top: 80px;
+  }
+  .sectionHead {
+    margin-bottom: 32px;
+  }
+  .sub {
+    font-size: 16px;
+  }
+  .teamGrid,
+  .resourceGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .span2 {
+    grid-column: auto;
+  }
+  .footer {
+    margin-top: 80px;
+  }
+}
+

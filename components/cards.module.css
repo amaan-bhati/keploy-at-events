@@ -1,0 +1,243 @@
+/* Card look taken from the keploy.io resources cards: near-white face with a
+   warm peach wash low on the left, silk waves along the bottom, soft shadow.
+   The whole card is the link. Hover is CSS only: a small lift, a warm shadow,
+   and an orange border glow. */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid #ecebea;
+  background:
+    radial-gradient(70% 34% at 22% 100%, rgb(251 146 60 / 0.16), transparent 72%),
+    linear-gradient(180deg, #fff 0%, #fefdfc 55%, #fdfaf8 100%);
+  padding: 24px 26px 30px;
+  color: inherit;
+  text-decoration: none;
+  box-shadow:
+    0 1px 2px rgb(20 20 43 / 0.03),
+    0 14px 36px -28px rgb(20 20 43 / 0.24);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* orange border glow on hover / focus */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #f97316, #fb7185 45%, rgb(196 181 253 / 0.7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 1px 2px rgb(20 20 43 / 0.03),
+      0 28px 48px -30px rgb(234 88 12 / 0.38);
+  }
+  .card:hover::before {
+    opacity: 1;
+  }
+  .card:hover .cornerIcon {
+    color: #ea580c;
+    transform: translate(2px, -2px);
+  }
+}
+.card:active {
+  transform: translateY(-1px) scale(0.995);
+}
+.card:focus-visible {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px #f97316;
+}
+.card:focus-visible::before {
+  opacity: 1;
+}
+
+.card > :not(.waves) {
+  position: relative;
+  z-index: 2;
+}
+
+.waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 100%;
+  height: 42%;
+  pointer-events: none;
+}
+
+/* small hint in the top-right corner instead of a CTA */
+.corner {
+  position: absolute !important;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.85);
+  border: 1px solid #f1eeea;
+}
+.cornerIcon {
+  width: 15px;
+  height: 15px;
+  color: #a8a29e;
+  transition:
+    color 0.3s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- resource card ---------- */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 40px;
+}
+.icon {
+  display: flex;
+  flex: none;
+  color: #141414;
+}
+.iconSvg {
+  width: 24px;
+  height: 24px;
+}
+.title {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: #0d0d0d;
+}
+.desc {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5b5f66;
+  max-width: 36ch;
+}
+
+/* the main conversion card: a richer peach wash and the brand gradient title */
+.featured {
+  border-color: #fed7aa;
+  background:
+    radial-gradient(60% 60% at 100% 0%, rgb(253 186 116 / 0.22), transparent 70%),
+    radial-gradient(70% 40% at 18% 100%, rgb(251 146 60 / 0.22), transparent 72%),
+    linear-gradient(180deg, #fffaf5 0%, #fff7ef 100%);
+}
+.featured .title {
+  background: linear-gradient(90deg, #f97316, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.featured .icon {
+  color: #ea580c;
+}
+.featured .corner {
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  border-color: transparent;
+}
+.featured .cornerIcon,
+.featured:hover .cornerIcon {
+  color: #fff;
+}
+
+/* ---------- person card: avatar beside name and role ---------- */
+.person {
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 56px 24px 20px;
+}
+.avatarRing {
+  display: inline-flex;
+  flex: none;
+  padding: 2.5px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f97316, #fb7185 50%, #c4b5fd);
+}
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 2.5px solid #fff;
+  object-fit: cover;
+  background: #f5f5f4;
+}
+.who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.name {
+  font-size: 17.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.role {
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #6b6f76;
+}
+.person .waves {
+  height: 55%;
+}
+
+@media (max-width: 639px) {
+  .card {
+    border-radius: 18px;
+    padding: 20px 20px 26px;
+  }
+  .person {
+    padding: 18px 52px 22px 18px;
+  }
+  .corner {
+    top: 16px;
+    right: 16px;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .desc {
+    font-size: 14.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cornerIcon {
+    transition: none;
+  }
+  .card:hover,
+  .card:active {
+    transform: none;
+  }
+}
